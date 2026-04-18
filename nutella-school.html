@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Infinity Math</title>
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
 <style>
  * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,6 +18,8 @@
    --gray: #aaaaaa;
    --gray-dim: #555555;
    --font: 'Press Start 2P', cursive;
+   --green: #4caf50;
+   --green-dark: #2e7d32;
  }
  html { scroll-behavior: smooth; }
  body {
@@ -33,7 +34,7 @@
    padding: 0 24px;
    position: sticky;
    top: 0;
-   z-index: 100;
+   z-index: 999;
    box-shadow: 0 4px 24px rgba(0,0,0,0.8);
    display: flex;
    align-items: center;
@@ -50,8 +51,24 @@
    color: var(--white);
    font-size: 0.72rem;
    line-height: 1;
-   text-shadow: 0 2px 6px rgba(0,0,0,0.4);
  }
+ .nav-links {
+   display: flex;
+   gap: 20px;
+   align-items: center;
+ }
+ .nav-links a {
+   color: var(--gray);
+   text-decoration: none;
+   font-size: 0.38rem;
+   cursor: pointer;
+   transition: color 0.2s;
+   padding-bottom: 2px;
+   border-bottom: 2px solid transparent;
+ }
+ .nav-links a:hover { color: var(--white); }
+ .nav-links a.active { color: var(--white); border-bottom-color: var(--red); }
+ .nav-links a.active-green { color: var(--white); border-bottom-color: var(--green); }
  .hero {
    background: #000;
    padding: 50px 24px 40px;
@@ -175,7 +192,7 @@
    display: none;
    position: fixed;
    inset: 0;
-   z-index: 999;
+   z-index: 9999;
    background: #000;
    flex-direction: column;
  }
@@ -220,6 +237,174 @@
    width: 100%;
    border: none;
  }
+
+ /* ===== MINECRAFT PAGE ===== */
+ #minecraftPage { display: none; }
+ .mc-hero {
+   background: #000;
+   padding: 50px 24px 40px;
+   text-align: center;
+   border-bottom: 2px solid #1a3a1a;
+ }
+ .mc-hero h1 {
+   font-size: clamp(0.75rem, 2vw, 1.3rem);
+   color: var(--green);
+   margin-bottom: 14px;
+   line-height: 1.8;
+ }
+ .mc-hero p {
+   font-size: 0.45rem;
+   max-width: 580px;
+   margin: 0 auto 10px;
+   line-height: 2.4;
+   color: #aaa;
+ }
+ .mc-warning {
+   display: inline-block;
+   margin-top: 18px;
+   background: #1a1a00;
+   border: 1px solid #555500;
+   border-radius: 8px;
+   padding: 10px 18px;
+   font-size: 0.32rem;
+   color: #cccc00;
+   line-height: 2.2;
+ }
+ .mc-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+   gap: 20px;
+ }
+ .mc-version-card {
+   background: #0a150a;
+   border: 2px solid #1a3a1a;
+   border-radius: 12px;
+   overflow: hidden;
+   cursor: pointer;
+   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+   padding-bottom: 14px;
+ }
+ .mc-version-card:hover {
+   border-color: var(--green);
+   transform: translateY(-4px);
+   box-shadow: 0 8px 28px rgba(76,175,80,0.3);
+ }
+ .mc-thumb {
+   width: 100%;
+   aspect-ratio: 16/9;
+   background: #071207;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow: hidden;
+   position: relative;
+ }
+ .mc-thumb img { width:100%;height:100%;object-fit:cover; }
+ .mc-play-overlay {
+   position: absolute;
+   inset: 0;
+   background: rgba(0,0,0,0.5);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 1.8rem;
+   opacity: 0;
+   transition: opacity 0.2s;
+ }
+ .mc-version-card:hover .mc-play-overlay { opacity: 1; }
+ .mc-version-label { font-size:0.48rem;color:#fff;text-align:center;padding:10px 8px 4px;line-height:1.7; }
+ .mc-version-sub { font-size:0.32rem;color:var(--green);text-align:center;padding:2px 8px 0;line-height:2; }
+ .mc-version-desc { font-size:0.28rem;color:#888;text-align:center;padding:4px 10px 0;line-height:2.2; }
+
+ /* ===== CREDITS PAGE ===== */
+ #creditsPage {
+   display: none;
+   max-width: 900px;
+   margin: 0 auto;
+   padding: 70px 24px 90px;
+ }
+ #creditsPage.active { display: block; }
+ .credits-title {
+   text-align: center;
+   font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+   color: var(--white);
+   margin-bottom: 16px;
+   line-height: 2;
+   letter-spacing: 0.08em;
+ }
+ .credits-sub {
+   text-align: center;
+   font-size: 0.4rem;
+   color: var(--gray);
+   line-height: 2.4;
+   margin-bottom: 10px;
+ }
+ .credits-rule {
+   width: 56px;
+   height: 3px;
+   background: var(--red);
+   margin: 20px auto 50px;
+ }
+ .credits-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+   gap: 22px;
+ }
+ .credit-card {
+   background: var(--black-card);
+   border: 2px solid #222;
+   border-radius: 12px;
+   padding: 36px 22px 30px;
+   text-align: center;
+   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+ }
+ .credit-card:hover {
+   border-color: var(--red);
+   transform: translateY(-5px);
+   box-shadow: 0 10px 28px rgba(204,0,0,0.3);
+ }
+ .credit-avatar {
+   width: 64px;
+   height: 64px;
+   border-radius: 50%;
+   background: #1a0000;
+   border: 2px solid var(--red-dark);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 1.8rem;
+   margin: 0 auto 20px;
+ }
+ .credit-name {
+   font-size: 0.65rem;
+   color: var(--white);
+   margin-bottom: 8px;
+   line-height: 1.8;
+ }
+ .credit-role {
+   font-size: 0.36rem;
+   color: var(--red);
+   line-height: 2.2;
+   margin-bottom: 14px;
+   text-transform: uppercase;
+   letter-spacing: 0.06em;
+ }
+ .credit-desc {
+   font-size: 0.33rem;
+   color: var(--gray);
+   line-height: 2.4;
+ }
+ .credits-note {
+   text-align: center;
+   margin-top: 64px;
+   font-size: 0.35rem;
+   color: var(--gray-dim);
+   line-height: 2.6;
+   border-top: 1px solid #1a1a1a;
+   padding-top: 36px;
+ }
+ .credits-note span { color: var(--red); }
+
  footer {
    background: var(--black-card);
    border-top: 1px solid #222;
@@ -242,12 +427,23 @@
    color: #fff;
    text-decoration: none;
    font-size: 0.38rem;
+   cursor: pointer;
  }
  .footer-links a:hover { color: #ccc; }
  footer p {
    font-size: 0.35rem;
    color: #fff;
    line-height: 2;
+ }
+ @keyframes spinPage {
+   0%   { transform: rotate(0deg) scale(1); }
+   30%  { transform: rotate(180deg) scale(0.7); }
+   70%  { transform: rotate(340deg) scale(0.85); }
+   100% { transform: rotate(360deg) scale(1); }
+ }
+ .spinning {
+   animation: spinPage 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+   transform-origin: center center;
  }
 </style>
 </head>
@@ -257,27 +453,89 @@
  <div class="logo-wrap">
    <div class="logo-text" style="font-size:26px;">∞ Infinity Math</div>
  </div>
+ <div class="nav-links">
+   <a id="nav-home" onclick="showPage('home')" class="active">Home</a>
+   <a id="nav-minecraft" onclick="showPage('minecraft')" style="color:#4caf50;">Minecraft</a>
+   <a id="nav-credits" onclick="showPage('credits')">Credits</a>
+ </div>
 </header>
 
-<section class="hero">
- <h1>Infinity<em></em><br></h1>
- <p>Nutella Official had a falloff of 2026 BSS History so . . . This Is The Website</p>
- <div class="search-bar">
-   <input type="text" id="searchInput" placeholder="Search games…" oninput="searchGames(this.value)" />
-   <button onclick="searchGames(document.getElementById('searchInput').value)">Search</button>
- </div>
-</section>
+<!-- HOME PAGE -->
+<div id="homePage">
+ <section class="hero">
+   <h1>Infinity<em></em><br></h1>
+   <p>Nutella Official had a falloff of 2026 BSS History so . . . This Is The Website</p>
+   <div class="search-bar">
+     <input type="text" id="searchInput" placeholder="Search games…" oninput="searchGames(this.value)" />
+     <button onclick="searchGames(document.getElementById('searchInput').value)">Search</button>
+   </div>
+ </section>
+ <main>
+   <div class="section-title">🎮 All Games</div>
+   <div class="game-grid" id="homeGrid"></div>
+ </main>
+</div>
 
-<main>
- <div class="section-title">🎮 All Games</div>
- <div class="game-grid" id="homeGrid"></div>
-</main>
+<!-- MINECRAFT PAGE -->
+<div id="minecraftPage">
+  <section class="mc-hero">
+    <h1>⛏ Minecraft</h1>
+    <p>Play Minecraft directly in your browser — no downloads, no installs. Multiple versions available.</p>
+  </section>
+  <main>
+    <div class="section-title" style="color:#4caf50;">⛏ Choose Your Version</div>
+    <div class="mc-grid" id="mcGrid"></div>
+  </main>
+</div>
 
-<!-- Embedding modal -->
+<!-- CREDITS PAGE -->
+<div id="creditsPage">
+  <h1 class="credits-title">Credits</h1>
+  <p class="credits-sub">The people &amp; tools behind Infinity Math.</p>
+  <div class="credits-rule"></div>
+
+  <div class="credits-grid">
+
+    <div class="credit-card">
+      <div class="credit-avatar" style="background:none;border:none;">
+        <img src="https://cdn.britannica.com/33/4833-050-F6E415FE/Flag-United-States-of-America.jpg" alt="US Flag" style="width:64px;height:64px;object-fit:cover;border-radius:50%;">
+      </div>
+      <div class="credit-name">Ray</div>
+      <div class="credit-role">Creator of Website</div>
+      <div class="credit-desc">The founder and visionary behind Infinity Math. Ray built and runs this entire platform.</div>
+    </div>
+
+    <div class="credit-card">
+      <div class="credit-avatar" style="background:none;border:none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" style="width:64px;height:64px;object-fit:contain;filter:invert(1);">
+      </div>
+      <div class="credit-name">UGS</div>
+      <div class="credit-role">Games</div>
+      <div class="credit-desc">Provided the game hosting and assets that power the Infinity Math arcade. All games remain property of their respective owners.</div>
+    </div>
+
+    <div class="credit-card">
+      <div class="credit-avatar" style="background:none;border:none;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg" alt="Claude AI" style="width:64px;height:64px;object-fit:contain;">
+      </div>
+      <div class="credit-name">Claude</div>
+      <div class="credit-role">Website Structure</div>
+      <div class="credit-desc">AI assistant by Anthropic. Helped design and build the code structure powering this site.</div>
+    </div>
+
+  </div>
+
+  <div class="credits-note">
+    © 2025 <span>Infinity Math</span> · Built with passion by Ray.<br>
+    All games are property of their respective owners.
+  </div>
+</div>
+
+<!-- Game modal -->
 <div id="gameModal" class="game-modal-bg">
- <div class="game-modal-header" style="background:#000;">
+ <div class="game-modal-header">
    <div class="game-modal-title" id="gameTitle"></div>
-   <div style="display:flex; align-items:center;">
+   <div style="display:flex;align-items:center;">
      <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
      <button class="game-modal-close" onclick="closeGame()">✕ Close</button>
    </div>
@@ -288,17 +546,236 @@
 <footer>
  <div class="footer-logo"><span>Infinity</span> Math</div>
  <div class="footer-links">
-   <a href="#">Home</a>
+   <a onclick="showPage('home')">Home</a>
+   <a onclick="showPage('minecraft')" style="color:#4caf50;">Minecraft</a>
    <a href="#">Privacy</a>
    <a href="#">Terms</a>
    <a href="#">Contact</a>
    <a href="#">DMCA</a>
+   <a onclick="showPage('credits')">Credits</a>
  </div>
  <p>© 2025 Infinity Math · All games are property of their respective owners.</p>
 </footer>
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
 <script>
- // --- Existing game loader code (Among Us) ---
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L7856P3VNT');
+</script>
+
+<script>
+ function showPage(page) {
+   document.getElementById('homePage').style.display = page === 'home' ? 'block' : 'none';
+   document.getElementById('minecraftPage').style.display = page === 'minecraft' ? 'block' : 'none';
+   var cp = document.getElementById('creditsPage');
+   cp.style.display = page === 'credits' ? 'block' : 'none';
+   document.getElementById('nav-home').classList.toggle('active', page === 'home');
+   document.getElementById('nav-credits').classList.toggle('active', page === 'credits');
+   var mcNav = document.getElementById('nav-minecraft');
+   mcNav.style.borderBottom = page === 'minecraft' ? '2px solid #4caf50' : '2px solid transparent';
+ }
+
+ /* ===== MINECRAFT VERSIONS ===== */
+ const mcVersions = [
+   { name: "Archimedes Client", version: "Eaglercraft", desc: "Custom Eaglercraft client by shxyder.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#1a2a1a", type: "archimedes" },
+   { name: "Astra Client", version: "Eaglercraft", desc: "Custom Eaglercraft client by shxyder.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#0a1a2a", type: "astra" },
+   { name: "Ayuncraft", version: "1.5.2", desc: "Public 1.5.2 server client by shxyder.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#1a1a0a", type: "ayuncraft" },
+   { name: "CoderCraft", version: "Eaglercraft", desc: "CoderCraft client by shxyder. May take a moment to load.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#0a0a1a", type: "codercraft" },
+   { name: "EaglerForge", version: "Mod Launcher", desc: "Eaglercraft mod launcher by shxyder. May take a moment to load.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#1a0a1a", type: "eaglerforge" },
+   { name: "Nebula", version: "Eaglercraft", desc: "Nebula client by shxyder. May take a moment to load.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#0a0a2a", type: "nebula" },
+   { name: "Odd Future", version: "Eaglercraft", desc: "Eaglercraft client by shxyder. May take a moment to load.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#1a0a0a", type: "oddfuture" },
+   { name: "Shadow", version: "Eaglercraft", desc: "Shadow client by shxyder.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#0a0a0a", type: "shadow" },
+   { name: "Winston", version: "Eaglercraft", desc: "Winston client by shxyder.", img: "https://eaglercraft.com/favicon.ico", imgBg: "#0a1a0a", type: "winston" }
+ ];
+
+ let winstonBlobUrl = null;
+ async function getWinstonUrl() {
+   if (winstonBlobUrl) return winstonBlobUrl;
+   const urls = [
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/winston/clwinston.html.part1",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/winston/clwinston.html.part2"
+   ];
+   let fullHtml = "";
+   for (const u of urls) { const res = await fetch(u); fullHtml += await res.text(); }
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   winstonBlobUrl = URL.createObjectURL(blob);
+   return winstonBlobUrl;
+ }
+
+ let shadowBlobUrl = null;
+ async function getShadowUrl() {
+   if (shadowBlobUrl) return shadowBlobUrl;
+   const urls = [
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/shadow/cleaglercraftshadow.html.part1",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/shadow/cleaglercraftshadow.html.part2"
+   ];
+   let fullHtml = "";
+   for (const u of urls) { const res = await fetch(u); fullHtml += await res.text(); }
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   shadowBlobUrl = URL.createObjectURL(blob);
+   return shadowBlobUrl;
+ }
+
+ let oddfutureBlobUrl = null;
+ async function getOddfutureUrl() {
+   if (oddfutureBlobUrl) return oddfutureBlobUrl;
+   const res = await fetch("https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/cloddfuture.html");
+   const fullHtml = await res.text();
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   oddfutureBlobUrl = URL.createObjectURL(blob);
+   return oddfutureBlobUrl;
+ }
+
+ let nebulaBlobUrl = null;
+ async function getNebulaUrl() {
+   if (nebulaBlobUrl) return nebulaBlobUrl;
+   const res = await fetch("https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/cleaglercraftnebula.html");
+   const fullHtml = await res.text();
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   nebulaBlobUrl = URL.createObjectURL(blob);
+   return nebulaBlobUrl;
+ }
+
+ let codercraftBlobUrl = null;
+ async function getCodercraftUrl() {
+   if (codercraftBlobUrl) return codercraftBlobUrl;
+   const res = await fetch("https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/clcodercraft.html");
+   const fullHtml = await res.text();
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   codercraftBlobUrl = URL.createObjectURL(blob);
+   return codercraftBlobUrl;
+ }
+
+ let eaglerforgeBlobUrl = null;
+ async function getEaglerforgeUrl() {
+   if (eaglerforgeBlobUrl) return eaglerforgeBlobUrl;
+   const urls = [
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/PineTools.com_files/cleaglerforge.html.part1",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/PineTools.com_files/cleaglerforge.html.part2",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/PineTools.com_files/cleaglerforge.html.part3",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/PineTools.com_files/cleaglerforge.html.part4"
+   ];
+   let fullHtml = "";
+   for (const u of urls) { const res = await fetch(u); fullHtml += await res.text(); }
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   eaglerforgeBlobUrl = URL.createObjectURL(blob);
+   return eaglerforgeBlobUrl;
+ }
+
+ let ayuncraftBlobUrl = null;
+ async function getAyuncraftUrl() {
+   if (ayuncraftBlobUrl) return ayuncraftBlobUrl;
+   const base = "https://cdn.jsdelivr.net/gh/shayderrr/portsv2@main/ayuncraft";
+   const html = `<!DOCTYPE html>
+<html>
+<head>
+<title>ayuncraft</title>
+<script type="text/javascript" src="${base}/jsbn/jsbn.js"><\/script>
+<script type="text/javascript" src="${base}/jsbn/jsbn2.js"><\/script>
+<script type="text/javascript" src="${base}/jsbn/base64.js"><\/script>
+<script type="text/javascript" src="${base}/jsbn/prng4.js"><\/script>
+<script type="text/javascript" src="${base}/jsbn/rng.js"><\/script>
+<script type="text/javascript" src="${base}/jsbn/rsa.js"><\/script>
+<script type="text/javascript" src="${base}/jsbn/rsa2.js"><\/script>
+<script type="text/javascript" src="${base}/asn1-parser.js"><\/script>
+<script type="text/javascript" src="${base}/music.js"><\/script>
+<script type="text/javascript" src="${base}/classes.js"><\/script>
+<script type="text/javascript">
+var name="PixelCraft",motd="A public 1.5.2 server",ip="pixelcraft.me";
+window.addEventListener("load", function(){
+document.requestPointerLock=document.requestPointerLock||function(){};
+document.exitPointerLock=document.exitPointerLock||function(){};
+window.minecraftOpts = [
+"game_frame","${base}/assets.epk",
+btoa(atob("CgAACQAHc2VydmVycwoAAAABCAAKZm9yY2VkTU9URABtb3RkaGVyZQEAC2hpZGVBZGRyZXNzAQgAAmlwAGlwaGVyZQgABG5hbWUAbmFtZWhlcmUAAA==").replace("motdhere",String.fromCharCode(motd.length)+motd).replace("namehere",String.fromCharCode(name.length)+name).replace("iphere",String.fromCharCode(ip.length)+ip))
+];
+(function(){
+var q=window.location.search;
+if(typeof q==='string'&&q.startsWith("?")){q=new URLSearchParams(q);var s=q.get("server");if(s)window.minecraftOpts.push(s);}
+})();
+main();
+});
+<\/script>
+</head>
+<body style="margin:0px;width:100vw;height:100vh;" id="game_frame"></body>
+</html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   ayuncraftBlobUrl = URL.createObjectURL(blob);
+   return ayuncraftBlobUrl;
+ }
+
+ let astraBlobUrl = null;
+ async function getAstraUrl() {
+   if (astraBlobUrl) return astraBlobUrl;
+   const urls = [
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/astra/clastraclient.html.part1",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/astra/clastraclient.html.part2",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/astra/clastraclient.html.part3",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/astra/clastraclient.html.part4"
+   ];
+   let fullHtml = "";
+   for (const u of urls) { const res = await fetch(u); fullHtml += await res.text(); }
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   astraBlobUrl = URL.createObjectURL(blob);
+   return astraBlobUrl;
+ }
+
+ let archimedesBlobUrl = null;
+ async function getArchimedesUrl() {
+   if (archimedesBlobUrl) return archimedesBlobUrl;
+   const urls = [
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/arch/clarchimedesclient.html.part1",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/arch/clarchimedesclient.html.part2",
+     "https://cdn.jsdelivr.net/gh/shayderrr/eaglercraft@main/arch/clarchimedesclient.html.part3"
+   ];
+   let fullHtml = "";
+   for (const u of urls) {
+     const res = await fetch(u);
+     fullHtml += await res.text();
+   }
+   const blob = new Blob([fullHtml], { type: "text/html" });
+   archimedesBlobUrl = URL.createObjectURL(blob);
+   return archimedesBlobUrl;
+ }
+
+ const mcBlobTypes = { archimedes: getArchimedesUrl, astra: getAstraUrl, ayuncraft: getAyuncraftUrl, codercraft: getCodercraftUrl, eaglerforge: getEaglerforgeUrl, nebula: getNebulaUrl, oddfuture: getOddfutureUrl, shadow: getShadowUrl, winston: getWinstonUrl };
+
+ function buildMcGrid() {
+   const grid = document.getElementById('mcGrid');
+   if (!grid) return;
+   grid.innerHTML = '';
+   mcVersions.forEach(v => {
+     const card = document.createElement('div');
+     card.className = 'mc-version-card';
+     card.innerHTML = `<div class="mc-thumb" style="background:${v.imgBg||'#071207'}"><img src="${v.img}" alt="${v.name}" onerror="this.style.display='none'"><div class="mc-play-overlay">▶</div></div><div class="mc-version-label">${v.name}</div><div class="mc-version-sub">${v.version}</div><div class="mc-version-desc">${v.desc}</div>`;
+     card.onclick = async () => {
+       const modal = document.getElementById('gameModal');
+       const frame = document.getElementById('gameFrame');
+       const titleEl = document.getElementById('gameTitle');
+       if (mcBlobTypes[v.type]) {
+         frame.src = 'about:blank';
+         modal.classList.add('open');
+         titleEl.textContent = v.name + ' — Loading…';
+         try {
+           frame.src = await mcBlobTypes[v.type]();
+           titleEl.textContent = v.name + ' — ' + v.version;
+         } catch(e) {
+           frame.srcdoc = `<body style="background:#000;color:#fff;font-family:monospace;padding:40px;text-align:center"><h2>Failed to load</h2><p>${e.message}</p></body>`;
+           titleEl.textContent = v.name + ' — Error';
+         }
+       } else {
+         frame.src = v.url;
+         modal.classList.add('open');
+         titleEl.textContent = v.name + ' — ' + v.version;
+       }
+     };
+     grid.appendChild(card);
+   });
+ }
+
+ /* ===== GAME BLOB FUNCTIONS ===== */
  let amongUsBlobUrl = null;
  async function getAmongUsUrl() {
    if (amongUsBlobUrl) return amongUsBlobUrl;
@@ -311,29 +788,661 @@
 <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/supportcheck.js"><\/script>
 <script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/offlineclient.js" type="module"><\/script>
 <script src="https://cdn.jsdelivr.net/gh/gahaden/ags@4f1a2b8755bcbf67ba043a7eca6c2e05d0b5bfe5/main.js" type="module"><\/script>
-<script src="https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/scripts/register-sw.js" type="module"><\/script>
 </body></html>`;
    const blob = new Blob([html], { type: "text/html" });
    amongUsBlobUrl = URL.createObjectURL(blob);
    return amongUsBlobUrl;
  }
 
- // --- Game catalogue ---
+ let adofaiBlobUrl = null;
+ async function getAdofaiUrl() {
+   if (adofaiBlobUrl) return adofaiBlobUrl;
+   const html = `<!DOCTYPE html><html><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/style.css"/>
+<style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#000;}</style>
+</head><body>
+<div class="webgl-content">
+  <div id="gameContainer" style="width:100vw;height:100vh"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/paigerodeghero/academicwebsite@897c910c65e6c68b04c44a6b6eba0b99d0f2f2cf/TemplateData/UnityProgress.js"><\/script>
+<script src="https://cdn.jsdelivr.net/gh/udbsite/adofai@f170efcb1b532312817e69f26ce3f84c99940238/Build/UnityLoader.js"><\/script>
+<script>
+var gameInstance = UnityLoader.instantiate(
+  "gameContainer",
+  "https://cdn.jsdelivr.net/gh/udbsite/adofai@f170efcb1b532312817e69f26ce3f84c99940238/Build/adofaiii4.json",
+  {onProgress: UnityProgress, Module:{onRuntimeInitialized: function(){UnityProgress(gameInstance,"complete")}}}
+);
+<\/script>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   adofaiBlobUrl = URL.createObjectURL(blob);
+   return adofaiBlobUrl;
+ }
+
+ let aDarkRoomBlobUrl = null;
+ async function getADarkRoomUrl() {
+   if (aDarkRoomBlobUrl) return aDarkRoomBlobUrl;
+   const base = "https://cdn.jsdelivr.net/gh/doublespeakgames/adarkroom@e1c67e5f6fd3b06314c2e12e75994c56cfe63e2d";
+   const html = `<!DOCTYPE html>
+<html itemscope itemtype="https://schema.org/CreativeWork">
+<head>
+<meta charset="UTF-8"/>
+<title>A Dark Room</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"><\/script>
+<script src="${base}/lib/jquery.color-2.1.2.min.js"><\/script>
+<script src="${base}/lib/jquery.event.move.js"><\/script>
+<script src="${base}/lib/jquery.event.swipe.js"><\/script>
+<script src="${base}/lib/base64.js"><\/script>
+<script src="${base}/lib/translate.js"><\/script>
+<script src="${base}/lang/langs.js"><\/script>
+<script src="${base}/script/Button.js"><\/script>
+<script src="${base}/script/audioLibrary.js"><\/script>
+<script src="${base}/script/audio.js"><\/script>
+<script src="${base}/script/engine.js"><\/script>
+<script src="${base}/script/state_manager.js"><\/script>
+<script src="${base}/script/header.js"><\/script>
+<script src="${base}/script/notifications.js"><\/script>
+<script src="${base}/script/events.js"><\/script>
+<script src="${base}/script/room.js"><\/script>
+<script src="${base}/script/outside.js"><\/script>
+<script src="${base}/script/world.js"><\/script>
+<script src="${base}/script/path.js"><\/script>
+<script src="${base}/script/ship.js"><\/script>
+<script src="${base}/script/space.js"><\/script>
+<script src="${base}/script/fabricator.js"><\/script>
+<script src="${base}/script/prestige.js"><\/script>
+<script src="${base}/script/scoring.js"><\/script>
+<script src="${base}/script/events/global.js"><\/script>
+<script src="${base}/script/events/room.js"><\/script>
+<script src="${base}/script/events/outside.js"><\/script>
+<script src="${base}/script/events/encounters.js"><\/script>
+<script src="${base}/script/events/setpieces.js"><\/script>
+<script src="${base}/script/events/marketing.js"><\/script>
+<script src="${base}/script/events/executioner.js"><\/script>
+<script type="text/javascript">var oldIE = false;<\/script>
+<link rel="stylesheet" type="text/css" href="${base}/css/main.css"/>
+<link rel="stylesheet" type="text/css" href="${base}/css/room.css"/>
+<link rel="stylesheet" type="text/css" href="${base}/css/outside.css"/>
+<link rel="stylesheet" type="text/css" href="${base}/css/path.css"/>
+<link rel="stylesheet" type="text/css" href="${base}/css/world.css"/>
+<link rel="stylesheet" type="text/css" href="${base}/css/ship.css"/>
+<link rel="stylesheet" type="text/css" href="${base}/css/space.css"/>
+<link rel="stylesheet" type="text/css" href="${base}/css/fabricator.css"/>
+<script src="${base}/script/localization.js"><\/script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="saveNotify"></div>
+  <div id="content">
+    <div id="outerSlider">
+      <div id="main">
+        <div id="header"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   aDarkRoomBlobUrl = URL.createObjectURL(blob);
+   return aDarkRoomBlobUrl;
+ }
+
+ let tenMinutesBlobUrl = null;
+ async function getTenMinutesUrl() {
+   if (tenMinutesBlobUrl) return tenMinutesBlobUrl;
+   const base = "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/10minutestilldawn";
+   const html = `<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<base href="${base}/"/>
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>10 Minutes Till Dawn</title>
+<script src="${base}/Build/UnityLoader.js"><\/script>
+<script>
+  function mergeFiles(fileParts) {
+    return new Promise((resolve, reject) => {
+      let buffers = [];
+      function fetchPart(i) {
+        if (i >= fileParts.length) { resolve(new Blob(buffers)); return; }
+        fetch(fileParts[i]).then(r => r.arrayBuffer()).then(data => { buffers.push(data); fetchPart(i+1); }).catch(reject);
+      }
+      fetchPart(0);
+    });
+  }
+  function getParts(file, start, end) {
+    let arr = [];
+    for (let i = start; i <= end; i++) arr.push(file + ".part" + i);
+    return arr;
+  }
+  function resizeUnityContainer() {
+    var c = document.getElementById("gameContainer");
+    if (c) { c.style.width = window.innerWidth + "px"; c.style.height = window.innerHeight + "px"; }
+  }
+  window.addEventListener('resize', resizeUnityContainer);
+  function UnityProgress(gameInstance, progress) {
+    try {
+      if (progress === 'complete') return;
+      var pct = 0;
+      if (typeof progress === 'number') pct = progress;
+      else if (progress && progress.total && progress.loaded) pct = progress.loaded / progress.total;
+      var txt = document.getElementById('loading-text');
+      if (txt) txt.textContent = 'Loading... ' + Math.round(pct * 100) + '%';
+    } catch(e) {}
+  }
+  window.addEventListener("load", function() {
+    window.unityMergedFiles = {};
+    Promise.all([
+      mergeFiles(getParts("${base}/Build/10MinutesTillDawnWebGL.data.unityweb", 1, 2)),
+      mergeFiles(getParts("${base}/Build/10MinutesTillDawnWebGL.wasm.code.unityweb", 1, 2)),
+      mergeFiles(getParts("${base}/Build/10MinutesTillDawnWebGL.wasm.framework.unityweb", 1, 1))
+    ]).then(([dataBlob, wasmCodeBlob, wasmFrameworkBlob]) => {
+      window.unityMergedFiles['Build/10MinutesTillDawnWebGL.data.unityweb'] = URL.createObjectURL(dataBlob);
+      window.unityMergedFiles['Build/10MinutesTillDawnWebGL.wasm.code.unityweb'] = URL.createObjectURL(wasmCodeBlob);
+      window.unityMergedFiles['Build/10MinutesTillDawnWebGL.wasm.framework.unityweb'] = URL.createObjectURL(wasmFrameworkBlob);
+      function findMergedKey(requestUrl) {
+        try {
+          if (typeof requestUrl !== 'string') return null;
+          if (window.unityMergedFiles[requestUrl]) return requestUrl;
+          var resolved = new URL(requestUrl, window.location.href).pathname.replace(/^[\\/]+/, '');
+          if (window.unityMergedFiles[resolved]) return resolved;
+          var withBuild = 'Build/' + resolved.split('/').pop();
+          if (window.unityMergedFiles[withBuild]) return withBuild;
+        } catch(e) {}
+        return null;
+      }
+      const originalFetch = window.fetch.bind(window);
+      window.fetch = function(url, ...args) {
+        const key = findMergedKey(url);
+        if (key) return originalFetch(window.unityMergedFiles[key], ...args);
+        return originalFetch(url, ...args);
+      };
+      const OriginalXHR = window.XMLHttpRequest;
+      window.XMLHttpRequest = function() {
+        const xhr = new OriginalXHR();
+        const originalOpen = xhr.open;
+        xhr.open = function(method, url, ...args) {
+          try {
+            const key = findMergedKey(url);
+            if (key) return originalOpen.call(this, method, window.unityMergedFiles[key], ...args);
+          } catch(e) {}
+          return originalOpen.call(this, method, url, ...args);
+        };
+        return xhr;
+      };
+      window.gameInstance = UnityLoader.instantiate("gameContainer", "${base}/Build/10MinutesTillDawnWebGL.json", {
+        onProgress: UnityProgress,
+        Module: {
+          onRuntimeInitialized: function() {
+            resizeUnityContainer();
+            let loadingText = document.querySelector("#loading-text");
+            if (loadingText) loadingText.remove();
+            UnityProgress(window.gameInstance, 'complete');
+          }
+        }
+      });
+    }).catch(err => {
+      let txt = document.getElementById('loading-text');
+      if (txt) txt.textContent = 'Loading failed: ' + (err && err.message ? err.message : err);
+    });
+  });
+<\/script>
+<style>
+  html, body { background:#000; width:100%; height:100%; overflow:hidden; padding:0; margin:0; }
+  #gameContainer { background:transparent !important; position:absolute; }
+  #gameContainer canvas { position:absolute; }
+  #loading-text { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; font-family:monospace; font-size:16px; z-index:10; }
+</style>
+</head>
+<body>
+<div id="loading-text">Loading... 0%</div>
+<div id="gameContainer" data-pixelated="true"></div>
+</body>
+</html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   tenMinutesBlobUrl = URL.createObjectURL(blob);
+   return tenMinutesBlobUrl;
+ }
+
+ let lolBlobUrl = null;
+ async function getLolUrl() {
+   if (lolBlobUrl) return lolBlobUrl;
+   const html = `<!DOCTYPE html><html><head>
+<meta charset="UTF-8"/>
+<style>html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#000;}
+.webgl-content{width:100%;height:100%;} #gameContainer{width:100%;height:100%;position:absolute;top:0;left:0;}</style>
+</head><body>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/UnityProgress.js"><\/script>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/2.7.js"><\/script>
+<script>
+var gameInstance;
+window.onload = function() {
+  gameInstance = UnityLoader.instantiate("gameContainer","https://cdn.jsdelivr.net/gh/n-101-1/1@main/2.7.json",{
+    onProgress: UnityProgress,
+    Module:{onRuntimeInitialized:function(){UnityProgress(gameInstance,"complete");}}
+  });
+};
+function showAds(){console.log("show ads");}
+function requestNewAd(){unityAdFinishedCallback();}
+function unityAdFinishedCallback(){try{if(gameInstance)gameInstance.SendMessage("AdsManager","OnWebCallback");}catch(e){console.log(e);}}
+<\/script>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase-app.js"><\/script>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase-auth.js"><\/script>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase-firestore.js"><\/script>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase.js"><\/script>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1login.js?v=2"><\/script>
+<script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firestore.js"><\/script>
+<script>
+try { initializeFireBase(); } catch(e) { console.log("Firebase init:", e); }
+<\/script>
+<div class="webgl-content"><div id="gameContainer"></div></div>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   lolBlobUrl = URL.createObjectURL(blob);
+   return lolBlobUrl;
+ }
+
+ let baldisUrl = null;
+ async function getBaldisUrl() {
+   if (baldisUrl) return baldisUrl;
+   const html = `<!DOCTYPE html><html><head>
+<meta charset="UTF-8"/>
+<style>iframe{width:100vw;height:100vh;}body{margin:0}</style>
+</head><body>
+<iframe title="Game Container" allow="autoplay; fullscreen; picture-in-picture; cross-origin-isolated" src="https://igroutka.ru/loader/game/26471/" width="100%" height="100%" scrolling="yes" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   baldisUrl = URL.createObjectURL(blob);
+   return baldisUrl;
+ }
+
+ let baldisPlusUrl = null;
+ async function getBaldisPlusUrl() {
+   if (baldisPlusUrl) return baldisPlusUrl;
+   const html = `<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<base href="https://cdn.jsdelivr.net/gh/genizy/web-port@latest/baldi-plus/">
+<meta charset="utf-8">
+<title>Baldi's Basics Plus</title>
+<link rel="stylesheet" href="TemplateData/style.css">
+<style>
+  body { margin: 0; background: #000; }
+  #loading-text { color: black; font-size: 32px; font-family: cursive; text-align: center; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div id="loading-text">LOADING...</div>
+<div id="unity-container" class="unity-desktop">
+  <canvas id="unity-canvas" width=960 height=600></canvas>
+  <div id="unity-loading-bar">
+    <div id="unity-logo"></div>
+    <div id="unity-progress-bar-empty">
+      <div id="unity-progress-bar-full"></div>
+    </div>
+  </div>
+</div>
+<script>
+  const loadingText = document.querySelector("#loading-text");
+  let totalBytes = 315673804.8;
+  let loadedBytes = 0;
+  function formatSize(bytes) {
+    if (bytes > 1024*1024*1024) return (bytes/(1024*1024*1024)).toFixed(2)+" GB";
+    else if (bytes > 1024*1024) return (bytes/(1024*1024)).toFixed(2)+" MB";
+    else if (bytes > 1024) return (bytes/1024).toFixed(2)+" KB";
+    return bytes+" B";
+  }
+  async function fetchWithProgress(url) {
+    const response = await fetch(url);
+    const reader = response.body.getReader();
+    let chunks = [], received = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      received += value.length;
+      loadedBytes += value.length;
+      chunks.push(value);
+      const percent = totalBytes > 0 ? ((loadedBytes/totalBytes)*100).toFixed(1) : "?";
+      loadingText.textContent = "LOADING... "+formatSize(loadedBytes)+" / "+formatSize(totalBytes)+" ("+percent+"%)";
+    }
+    let full = new Uint8Array(received), offset = 0;
+    for (let c of chunks) { full.set(c, offset); offset += c.length; }
+    return full.buffer;
+  }
+  async function mergeFiles(parts) {
+    const buffers = await Promise.all(parts.map(fetchWithProgress));
+    return URL.createObjectURL(new Blob(buffers));
+  }
+  function getParts(file, count) {
+    let parts = [];
+    for (let i = 1; i <= count; i++) parts.push(file+".part"+i);
+    return parts;
+  }
+  (async () => {
+    const [dataUrl, wasmUrl] = await Promise.all([
+      mergeFiles(getParts("Build/BaldiPlusNew.data", 5)),
+      mergeFiles(getParts("Build/BaldiPlusNew.wasm", 2))
+    ]);
+    var canvas = document.querySelector("#unity-canvas");
+    var loadingBar = document.querySelector("#unity-loading-bar");
+    var progressBarFull = document.querySelector("#unity-progress-bar-full");
+    loadingBar.style.display = "block";
+    var script = document.createElement("script");
+    script.src = "Build/BaldiPlusNew.loader.js";
+    script.onload = () => {
+      createUnityInstance(canvas, {
+        dataUrl: dataUrl,
+        frameworkUrl: "Build/BaldiPlusNew.framework.js",
+        codeUrl: wasmUrl,
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Basically Games",
+        productName: "Baldi's Basics Plus",
+        productVersion: "0.12.2a"
+      }, (progress) => {
+        progressBarFull.style.width = 100*progress+"%";
+      }).then(() => {
+        loadingText.remove();
+        loadingBar.style.display = "none";
+      }).catch((msg) => alert(msg));
+    };
+    document.body.appendChild(script);
+  })();
+<\/script>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   baldisPlusUrl = URL.createObjectURL(blob);
+   return baldisPlusUrl;
+ }
+
+ let caliberUrl = null;
+ async function getCaliberUrl() {
+   if (caliberUrl) return caliberUrl;
+   const html = `<!DOCTYPE html>
+<html lang="en-us">
+<base href="https://cdn.jsdelivr.net/gh/Stinkalistic/UGS@main/UNITY/500calibercontractz/">
+<head>
+<meta charset="utf-8">
+<title>500 Caliber Contractz</title>
+<style>
+  html,body{background:#000;width:100%;height:100%;overflow:visible;padding:0;margin:0;}
+  #gameContainer{background:transparent!important;position:absolute;}
+  #gameContainer canvas{position:absolute;}
+  #loading-text{color:white;font-family:sans-serif;text-align:center;margin-top:1em;}
+</style>
+</head>
+<body>
+<div id="gameContainer">
+  <canvas id="unity-canvas" data-pixel-art></canvas>
+  <div id="loading-text">LOADING...</div>
+</div>
+<script src="Build/loader.js"><\/script>
+<script>
+  if(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){const meta=document.createElement('meta');meta.name='viewport';meta.content='width=device-width,height=device-height,initial-scale=1.0,user-scalable=no,shrink-to-fit=yes';document.head.appendChild(meta);}
+  const loadingText=document.querySelector("#loading-text");
+  let totalBytes=0,loadedBytes=0;
+  function formatSize(b){if(b>1073741824)return(b/1073741824).toFixed(2)+" GB";if(b>1048576)return(b/1048576).toFixed(2)+" MB";if(b>1024)return(b/1024).toFixed(2)+" KB";return b+" B";}
+  async function getSize(url){try{const r=await fetch(url,{method:"HEAD"});return parseInt(r.headers.get("Content-Length")||"0",10);}catch{return 0;}}
+  async function fetchPart(url){const response=await fetch(url);if(!response.body){const ab=await response.arrayBuffer();loadedBytes+=ab.byteLength;loadingText.textContent="LOADING... "+formatSize(loadedBytes)+" / "+formatSize(totalBytes);return new Uint8Array(ab);}const reader=response.body.getReader();const chunks=[];let received=0;while(true){const{done,value}=await reader.read();if(done)break;received+=value.length;loadedBytes+=value.length;chunks.push(value);const percent=totalBytes>0?((loadedBytes/totalBytes)*100).toFixed(1):"?";loadingText.textContent="LOADING... "+formatSize(loadedBytes)+" / "+formatSize(totalBytes)+" ("+percent+"%)";}const full=new Uint8Array(received);let offset=0;for(let c of chunks){full.set(c,offset);offset+=c.length;}return full;}
+  async function mergeParts(parts,mimeType){const buffers=await Promise.all(parts.map(fetchPart));const totalLen=buffers.reduce((s,b)=>s+b.length,0);const cat=new Uint8Array(totalLen);let off=0;for(let b of buffers){cat.set(b,off);off+=b.length;}return URL.createObjectURL(new Blob([cat],{type:mimeType||undefined}));}
+  function getParts(file,count){const p=[];for(let i=1;i<=count;i++)p.push(file+".part"+i);return p;}
+  (async()=>{
+    try{
+      const dataParts=getParts("Build/500.data",19);
+      const wasmParts=getParts("Build/500.wasm",3);
+      const allParts=[...dataParts,...wasmParts,"Build/framework.js"];
+      const sizes=await Promise.all(allParts.map(getSize));
+      totalBytes=sizes.reduce((a,b)=>a+b,0);
+      const[dataUrl,wasmUrl,frameworkUrl]=await Promise.all([mergeParts(dataParts),mergeParts(wasmParts),mergeParts(["Build/framework.js"],'application/javascript')]);
+      const canvas=document.querySelector("#unity-canvas");
+      let scaleToFit=true;
+      function onResize(){const container=canvas.parentElement;let w,h;if(scaleToFit){w=window.innerWidth;h=window.innerHeight;const r=540/960;if(w*r>window.innerHeight)w=Math.min(w,Math.ceil(h/r));h=Math.floor(w*r);}else{w=960;h=540;}container.style.width=canvas.style.width=w+"px";container.style.height=canvas.style.height=h+"px";container.style.top=Math.floor((window.innerHeight-h)/2)+"px";container.style.left=Math.floor((window.innerWidth-w)/2)+"px";}
+      window.addEventListener('resize',onResize);onResize();
+      await(async function waitForLoader(){if(typeof createUnityInstance==='function')return;await new Promise(resolve=>{const check=setInterval(()=>{if(typeof createUnityInstance==='function'){clearInterval(check);resolve();}},50);});})();
+      createUnityInstance(canvas,{dataUrl:dataUrl,frameworkUrl:frameworkUrl,codeUrl:wasmUrl,streamingAssetsUrl:"https://cdn.jsdelivr.net/gh/Stinkalistic/UGS@main/UNITY/500calibercontractz/StreamingAssets",companyName:"",productName:"",productVersion:""},(progress)=>{loadingText.textContent="LOADING... "+Math.round(progress*100)+"%";}).then(()=>{loadingText.remove();}).catch((msg)=>{loadingText.textContent='Failed to start Unity: '+msg;});
+    }catch(err){loadingText.textContent='ERROR: '+(err.message||err);console.error(err);}
+  })();
+<\/script>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   caliberUrl = URL.createObjectURL(blob);
+   return caliberUrl;
+ }
+
+ let fnaf1Url = null;
+ async function getFnaf1Url() {
+   if (fnaf1Url) return fnaf1Url;
+   const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="https://cdn.jsdelivr.net/gh/genizy/fnaf@latest/1/">
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+<title>Five Nights at Freddy's 1</title>
+</head>
+<body>
+<div style="display:inline-block;-webkit-user-select:none;text-align:left">
+  <canvas id="MMFCanvas" width="1280" height="720">Your browser does not support Canvas.</canvas>
+</div>
+<div id="progress-container">
+  <div style="margin-bottom:6px;">Downloading... <span id="download-text">0%</span></div>
+  <div style="width:100%;background:#444;border-radius:6px;overflow:hidden;">
+    <div id="download-bar" style="height:10px;background:#3b82f6;width:0%;transition:width 0.2s;"></div>
+  </div>
+  <div style="margin:12px 0 6px;">Extracting... <span id="extract-text">0%</span></div>
+  <div style="width:100%;background:#444;border-radius:6px;overflow:hidden;">
+    <div id="extract-bar" style="height:10px;background:#10b981;width:0%;transition:width 0.2s;"></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"><\/script>
+<script src="main.js"><\/script>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   fnaf1Url = URL.createObjectURL(blob);
+   return fnaf1Url;
+ }
+
+ let retroBowlUrl = null;
+ async function getRetroBowlUrl() {
+   if (retroBowlUrl) return retroBowlUrl;
+   const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="https://cdn.jsdelivr.net/gh/selenite-cc/selenite-old@9c743188888af0986c8c7b293dbac8f9e421a4ee/retrobowl/">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta http-equiv="pragma" content="no-cache"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+<meta charset="utf-8"/>
+<title>Retro Bowl</title>
+<style>
+  body{background:#000;color:#ccc;margin:0;padding:0;border:0;}
+  canvas{image-rendering:optimizeSpeed;-webkit-interpolation-mode:nearest-neighbor;-ms-touch-action:none;margin:0;padding:0;border:0;}
+  :-webkit-full-screen #canvas{width:100%;height:100%;}
+  div.gm4html5_div_class{margin:0;padding:0;border:0;}
+</style>
+</head>
+<body>
+<div class="gm4html5_div_class" id="gm4html5_div_id">
+  <img src="html5game/splash.png" id="GM4HTML5_loadingscreen" alt="RetroBowl loading" style="display:none"/>
+  <canvas id="canvas" width="960" height="540"><p>Your browser doesn't support HTML5 canvas.</p></canvas>
+</div>
+<script type="text/javascript" src="html5game/RetroBowl.js?WAEAC=1633155445"><\/script>
+<script>window.onload = GameMaker_Init;<\/script>
+</body></html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   retroBowlUrl = URL.createObjectURL(blob);
+   return retroBowlUrl;
+ }
+
+ /* ===== FRIDAY NIGHT FUNKIN' ===== */
+ let fnfBlobUrl = null;
+ async function getFnfUrl() {
+   if (fnfBlobUrl) return fnfBlobUrl;
+   const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="https://cdn.jsdelivr.net/gh/genizy/fridayfunk@65da3b8e88b909a8e27f8d750533a758d8dc54f3/">
+  <meta charset="utf-8">
+  <title>Friday Night Funkin'</title>
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script type="text/javascript" src="Funkin.js"><\/script>
+  <script>
+    window.addEventListener("touchmove", function(event){ event.preventDefault(); }, { capture: false, passive: false });
+    if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+      var meta = document.getElementById("viewport");
+      meta.setAttribute('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no');
+    }
+  <\/script>
+  <style>
+    html,body { margin:0; padding:0; height:100%; overflow:hidden; }
+    #openfl-content { background:#000000; width:100%; height:100%; }
+  </style>
+</head>
+<body>
+  <div id="openfl-content"></div>
+  <script type="text/javascript">
+    lime.embed("Funkin", "openfl-content", 1280, 720, { parameters: {} });
+  <\/script>
+</body>
+</html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   fnfBlobUrl = URL.createObjectURL(blob);
+   return fnfBlobUrl;
+ }
+
+ /* ===== COOKIE CLICKER ===== */
+ let cookieClickerBlobUrl = null;
+ async function getCookieClickerUrl() {
+   if (cookieClickerBlobUrl) return cookieClickerBlobUrl;
+   const html = `<!DOCTYPE html>
+<html>
+<head>
+<base href="https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/cookieclicker/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=900, initial-scale=1">
+<title>Cookie Clicker</title>
+<script>
+  var VERSION=2.058;
+  var BETA=0;
+  var SAVESUFFIX='';
+  var App=0;
+  var PRESETMODS=[];
+  var LOCAL=1;
+  window.adsbygoogle={enabled:true,loaded:true,push:function(){return;},google_ad_client:"",enable_page_level_ads:true};
+<\/script>
+<link rel="shortcut icon" href="img/favicon.ico"/>
+<link href="style.css?v=10c" rel="stylesheet" type="text/css">
+<script src="base64.js"><\/script>
+<script src="main2.js?v=13g"><\/script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="topBar" style="display:none;"></div>
+  <div id="game">
+    <div id="versionNumber" class="title">v. 2.058</div>
+    <div id="offGameMessageWrap">
+      <div id="offGameMessage">
+        <div id="loader">
+          <div class="spinnyBig"></div>
+          <div class="spinnySmall"></div>
+          <div id="loading" class="title">Loading...</div>
+          <div id="failedToLoad" class="title">Taking longer than expected...<br>
+          <div style="font-size:65%;line-height:120%;">If this persists, check your connection and refresh.</div></div>
+        </div>
+      </div>
+    </div>
+    <canvas id="backgroundCanvas"></canvas>
+    <div id="goldenCookie" class="goldenCookie"></div>
+    <div id="seasonPopup" class="seasonPopup"></div>
+    <div id="shimmers"></div>
+    <div id="alert"></div>
+    <div id="particles"></div>
+    <div id="sparkles" class="sparkles"></div>
+    <div id="notes"></div>
+    <div id="darken"></div>
+    <div id="toggleBox" class="framed prompt"></div>
+    <div id="promptAnchor"><div id="prompt" class="framed"><div id="promptContent"></div><div id="promptClose" class="close" style="display:none;" onclick="PlaySound('snd/tickOff.mp3');Game.ClosePrompt();">x</div></div></div>
+    <div id="ascend">
+      <div id="ascendBG"></div>
+      <div id="ascendZoomable"><div id="ascendContent"><div id="ascendUpgrades" style="position:absolute;"></div></div></div>
+      <div id="ascendOverlay"></div>
+    </div>
+    <div id="debug"><div id="devConsole" class="framed"></div><div id="debugLog"></div></div>
+    <div id="sectionLeft" class="inset">
+      <canvas id="backgroundLeftCanvas" style="z-index:5;"></canvas>
+      <div class="blackFiller"></div>
+      <div class="blackGradient"></div>
+      <div id="sectionLeftInfo"></div>
+      <div id="cookies" class="title"></div>
+      <div id="bakeryNameAnchor"><div id="bakeryName" class="title"></div></div>
+      <div id="specialPopup" class="framed prompt offScreen"></div>
+      <div id="buffs" class="crateBox"></div>
+      <div id="cookieAnchor">
+        <button id="bigCookie"></button>
+        <div id="cookieNumbers"></div>
+      </div>
+      <div id="sectionLeftExtra"></div>
+    </div>
+    <div class="separatorLeft" id="leftBeam"></div>
+    <div class="separatorRight" id="rightBeam"></div>
+    <div id="sectionMiddle" class="inset">
+      <div id="comments" class="inset title">
+        <div id="prefsButton" class="panelButton"><div class="subButton">Options</div></div>
+        <div id="statsButton" class="panelButton"><div>Stats</div></div>
+        <div id="logButton" class="panelButton"><div>Info</div><div id="checkForUpdate">New update!</div></div>
+        <div id="legacyButton" class="panelButton"><div class="subButton">Legacy</div><div id="ascendMeterContainer" class="smallFramed meterContainer"><div id="ascendMeter" class="meter filling"></div></div><div class="roundedPanel" id="ascendNumber"></div><div id="ascendTooltip" class="framed"></div></div>
+        <div id="commentsText">
+          <div id="commentsText1" class="commentsText"></div>
+          <div id="commentsText2" class="commentsText"></div>
+        </div>
+        <div class="separatorBottom"></div>
+      </div>
+      <div id="centerArea">
+        <div id="buildingsTitle" class="inset title zoneTitle">Buildings</div>
+        <div id="buildingsMaster"></div>
+        <div id="rows"></div>
+        <div id="menu"></div>
+      </div>
+    </div>
+    <div id="sectionRight" class="inset">
+      <div id="store">
+        <div id="storeTitle" class="inset title zoneTitle">Store</div>
+        <div id="toggleUpgrades" class="storeSection upgradeBox"></div>
+        <div id="techUpgrades" class="storeSection upgradeBox"></div>
+        <div id="vaultUpgrades" class="storeSection upgradeBox"></div>
+        <div id="upgrades" class="storeSection upgradeBox"></div>
+        <div id="products" class="storeSection"></div>
+      </div>
+    </div>
+    <div id="tooltipAnchor"><div id="tooltip" class="framed" onMouseOut="Game.tooltip.hide();"></div></div>
+    <div id="preloadImages" style="display:none;"></div>
+  </div>
+</div>
+</body>
+</html>`;
+   const blob = new Blob([html], { type: "text/html" });
+   cookieClickerBlobUrl = URL.createObjectURL(blob);
+   return cookieClickerBlobUrl;
+ }
+
  const games = [
-   {
-     name: "Among Us",
-     img: "https://cdn.jsdelivr.net/gh/mamayaya1/game@f3a882424a8f28d07bdf456b251d889725c4c1e4/projects/among-us/img/thumbnail.png",
-     type: "amongus"
-   },
-   {
-     name: "Study Group",
-     img: "https://via.placeholder.com/300x169.png?text=Study+Group",
-     url: "https://padlet.com/oojo1/study-group-k9w2oro6a6h0zkwh"
-   }
-   // No "Arthur's Nightmare" game object here, since we've removed it.
+   { name: "Among Us", img: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Among_Us_cover_art.jpg/250px-Among_Us_cover_art.jpg", type: "amongus" },
+   { name: "A Dance of Fire and Ice", img: "https://pbs.twimg.com/profile_images/1316068262845710336/3obYu4Lq.jpg", type: "adofai" },
+   { name: "A Dark Room", img: "https://cdn.jsdelivr.net/gh/doublespeakgames/adarkroom@e1c67e5f6fd3b06314c2e12e75994c56cfe63e2d/img/adr.png", type: "adarkroom" },
+   { name: "10 Minutes Till Dawn", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA6ZUpUuWo4roXp6CEc2tfvKU43Yp3ajfGDauIFH4LAGFtbYb6qzJqJ398PSmDAMLB-JeTJA&s", type: "tenminutes" },
+   { name: "1v1.LOL", img: "https://i.pinimg.com/1200x/f3/9a/c9/f39ac9262728a5f0d23908e9b8438bad.jpg", type: "lol" },
+   { name: "Study Group", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGyiUYFIkfqaqu3R_CHKJLUTuUXGFkXKGjZw&s", url: "https://padlet.com/oojo1/study-group-k9w2oro6a6h0zkwh" },
+   { name: "500 Caliber Contractz", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9vt3mPJHi4xOOyyjJACmggy1NjhQOiIwcN67EaKfj72z4_WPujPU6-qH2KYrnIqEUmH_ydw&s=10", type: "caliber" },
+   { name: "FNAF", img: "https://images.genius.com/b49240eb5e510bb0b56d5abd7b45270d.512x512x1.png", type: "fnaf1" },
+   { name: "Retro Bowl", img: "https://play-lh.googleusercontent.com/WRM5Y1xZmzcCP1YtO5zl6G2g7CU5c5ZfjX4UVrgi1bpNgkfy-wuB-bQx3kkeRfaGYQ=w600-h300-pc0xffffff-pd", type: "retrobowl", imgStyle: "object-fit:contain;background:#fff;" },
+   { name: "Friday Night Funkin'", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Friday_Night_Funkin%27_Logo.png/320px-Friday_Night_Funkin%27_Logo.png", type: "fnf", imgStyle: "object-fit:contain;background:#000;" },
+   { name: "Cookie Clicker", img: "https://cdn.jsdelivr.net/gh/bubbls/UGS-Assets@main/cookieclicker/img/perfectCookie.png", type: "cookieclicker", imgStyle: "object-fit:contain;background:#3a1f0f;padding:8px;" },
  ];
 
- // --- Grid builder ---
  function buildGrid(list) {
    const grid = document.getElementById('homeGrid');
    if (!grid) return;
@@ -346,67 +1455,70 @@
      const card = document.createElement('div');
      card.className = 'game-card';
      const imgTag = g.img
-       ? `<img src="${g.img}" alt="${g.name}">`
+       ? `<img src="${g.img}" alt="${g.name}" style="width:100%;height:100%;object-fit:cover;${g.imgStyle||''}" onerror="this.style.display='none'">`
        : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;">🎮</div>`;
-     card.innerHTML = `
-       <div class="game-thumb">
-         ${imgTag}
-         <div class="play-overlay">▶</div>
-       </div>
-       <div class="game-name">${g.name}</div>`;
-     card.onclick = () => openGame(g);
+     card.innerHTML = `<div class="game-thumb">${imgTag}<div class="play-overlay">▶</div></div><div class="game-name">${g.name}</div>`;
+     card.onclick = () => {
+       const page = document.getElementById('homePage');
+       page.classList.add('spinning');
+       page.addEventListener('animationend', () => {
+         page.classList.remove('spinning');
+         openGame(g);
+       }, { once: true });
+     };
      grid.appendChild(card);
    });
  }
 
  function searchGames(q) {
-   const filtered = q.trim()
-     ? games.filter(g => g.name.toLowerCase().includes(q.toLowerCase()))
-     : games;
+   const filtered = q.trim() ? games.filter(g => g.name.toLowerCase().includes(q.toLowerCase())) : games;
    buildGrid(filtered);
  }
 
- // --- Open/Close game ---
  let isFullscreen = false;
  function toggleFullscreen() {
    const iframe = document.getElementById('gameFrame');
    if (!isFullscreen) {
      if (iframe.requestFullscreen) iframe.requestFullscreen();
      else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-     else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
      isFullscreen = true;
    } else {
      if (document.exitFullscreen) document.exitFullscreen();
      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-     else if (document.msExitFullscreen) document.msExitFullscreen();
      isFullscreen = false;
    }
  }
 
  async function openGame(g) {
-   document.getElementById('gameTitle').textContent = g.name;
    const modal = document.getElementById('gameModal');
    const frame = document.getElementById('gameFrame');
-   document.getElementById('fullscreenBtn').style.display = 'block';
-
-   if (g.type === 'amongus') {
+   const blobTypes = {
+     amongus: getAmongUsUrl,
+     adofai: getAdofaiUrl,
+     adarkroom: getADarkRoomUrl,
+     tenminutes: getTenMinutesUrl,
+     lol: getLolUrl,
+     caliber: getCaliberUrl,
+     fnaf1: getFnaf1Url,
+     retrobowl: getRetroBowlUrl,
+     fnf: getFnfUrl,
+     cookieclicker: getCookieClickerUrl,
+   };
+   if (blobTypes[g.type]) {
      frame.src = 'about:blank';
      modal.classList.add('open');
      document.getElementById('gameTitle').textContent = g.name + ' — Loading…';
      try {
-       const url = await getAmongUsUrl();
-       frame.src = url;
+       frame.src = await blobTypes[g.type]();
        document.getElementById('gameTitle').textContent = g.name;
      } catch (e) {
        frame.srcdoc = `<body style="background:#000;color:#fff;font-family:monospace;padding:40px;text-align:center"><h2>Failed to load game</h2><p>${e.message}</p></body>`;
        document.getElementById('gameTitle').textContent = g.name + ' — Error';
      }
-   } else if (g.type === 'unity') {
-     frame.src = g.url;
-     modal.classList.add('open');
    } else {
      frame.src = g.url;
      modal.classList.add('open');
+     document.getElementById('gameTitle').textContent = g.name;
    }
  }
 
@@ -416,7 +1528,7 @@
    isFullscreen = false;
  }
 
- window.onload = () => { buildGrid(games); };
+ window.onload = () => { buildGrid(games); buildMcGrid(); showPage('home'); };
 </script>
 </body>
 </html>
